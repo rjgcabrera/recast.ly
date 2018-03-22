@@ -4,20 +4,36 @@ class Search extends React.Component {
     this.state = {
       text: ''
     }
-    
+    this.handleSubmit = _.debounce(this.handleSubmit, 500);
+  }
+  
+  updateText(e) {
+    var that = this;
+    this.setState({
+      text: e.target.value
+    });
+    that.handleSubmit();
   }
   
   handleSubmit() {
-    window.searchYouTube({}, (data) => {
+    var options = {
+      q: this.state.text,
+      key: window.YOUTUBE_API_KEY,
+      maxResults: 5,
+      type: 'video',
+      part: 'snippet',
+      videoEmbeddable: true
+    };
+    window.searchYouTube(options, (data) => {
       this.props.getVideos(data.items);
     });
   }
   
-  render() {
+  render() { //
     return (
     <div className="search-bar form-inline">
-      <input className="form-control" type="text" onChange={}/>
-      <button className="btn hidden-sm-down" onClick={}>
+      <input className="form-control" type="text" onChange={this.updateText.bind(this)}/>
+      <button className="btn hidden-sm-down" onClick={this.handleSubmit.bind(this)}>
         <span className="glyphicon glyphicon-search"></span>
       </button>
     </div>

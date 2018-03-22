@@ -7,14 +7,18 @@
   "private": true,
   "scripts": {
     "test": "live-server --open=./SpecRunner.html --port=8081",
-    "postinstall": "curl -s https://raw.githubusercontent.com/reactorcore/pomander/master/bin/install | bash"
+    "postinstall": "curl -s https://raw.githubusercontent.com/reactorcore/pomander/master/bin/install | bash",
+    "applewatch": "babel . --out-dir compiled --presets=env,react --ignore=node_modules,compiled --source-maps inline --watch",
+    "jimantha": "live-server | npm run applewatch"
   },
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.2",
     "jquery": "^2.2.1",
     "lodash": "^4.6.1",
+    "popper": "^1.0.1",
     "react": "^0.14.7",
-    "react-dom": "^0.14.7"
+    "react-dom": "^0.14.7",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",

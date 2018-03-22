@@ -6,16 +6,32 @@ class App extends React.Component {
       videos: window.exampleVideoData,
       currVideo: 0
     };
+    this.getVideos = this.getVideos.bind(this);
+  }
+  
+  componentWillMount() {
+    var options = {
+      q: '',
+      key: window.YOUTUBE_API_KEY,
+      maxResults: 5,
+      type: 'video',
+      part: 'snippet',
+      videoEmbeddable: true
+    };
+    window.searchYouTube(options, (data) => {
+      this.getVideos(data.items);
+    });    
+    console.log(this.state.videos);
   }
   
   changeCurrentVideo(e, index) {
-    console.log(index);
     this.setState({
       currVideo: index
     });
   }
   
   getVideos(array) {
+    console.log(array);
     this.setState({
       videos: array,
       currVideo: 0
